@@ -1,5 +1,6 @@
 {
-  "name": "ngx-plyr",
+  "name": "@makiwin/ngx-plyr",
+  "version": "0.15.0",
   "keywords": [
     "ngx-plyr",
     "ng-plyr",
@@ -9,15 +10,15 @@
     "video",
     "audio"
   ],
-  "author": "smnbbrv",
+  "author": "makiwin",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/smnbbrv/ngx-plyr"
+    "url": "https://github.com/makiwin/ngx-plyr"
   },
   "peerDependencies": {
-    "@angular/common": ">=8.0.0",
-    "@angular/core": ">=8.0.0",
+    "@angular/common": ">=15.0.0",
+    "@angular/core": ">=15.0.0",
     "plyr": "^3.5.10"
   },
   "publishConfig": {
