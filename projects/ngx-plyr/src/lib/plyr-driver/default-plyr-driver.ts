@@ -1,9 +1,14 @@
-import * as Plyr from 'plyr';
-import { PlyrDriver, PlyrDriverCreateParams, PlyrDriverDestroyParams, PlyrDriverUpdateSourceParams } from './plyr-driver';
+import Plyr from "plyr";
+import {
+  PlyrDriver,
+  PlyrDriverCreateParams,
+  PlyrDriverDestroyParams,
+  PlyrDriverUpdateSourceParams,
+} from "./plyr-driver";
 
 export class DefaultPlyrDriver implements PlyrDriver {
-
   create(params: PlyrDriverCreateParams) {
+    console.log(Plyr, "it is plyr");
     return new Plyr(params.videoElement, params.options);
   }
 
@@ -14,5 +19,4 @@ export class DefaultPlyrDriver implements PlyrDriver {
   destroy(params: PlyrDriverDestroyParams) {
     params.plyr.destroy();
   }
-
 }

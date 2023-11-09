@@ -5,7 +5,7 @@
     "ng": "ng",
     "start": "ng serve",
     "build:app": "ng build --prod && cp dist/ngx-plyr-app/index.html dist/ngx-plyr-app/404.html",
-    "build:lib": "cd projects/ngx-plyr && ng-packagr -p ng-package.json && cd ../../ && cp README.md dist/ngx-plyr && cp LICENSE.md dist/ngx-plyr",
+    "build:lib": "cd projects/ngx-plyr && ng-packagr -p ng-package.json --config tsconfig.ngc.json && cd ../../ && cp README.md dist/ngx-plyr && cp LICENSE.md dist/ngx-plyr",
     "test:app": "ng test ngx-plyr-app",
     "test:app:ci": "ng test ngx-plyr-app --watch=false --progress=false --browsers=ChromeHeadlessCI",
     "test:lib": "ng test ngx-plyr",
@@ -13,7 +13,7 @@
     "lint": "ng lint",
     "e2e": "ng e2e",
     "release": "semantic-release",
-    "npm_publish": "cd dist/ngx-plyr && npm publish --access public"
+    "publish": "cd dist/ngx-plyr && npm publish --access public"
   },
   "private": true,
   "dependencies": {
@@ -28,11 +28,10 @@
     "@angular/platform-browser": "^15.2.10",
     "@angular/platform-browser-dynamic": "^15.2.10",
     "@angular/router": "^15.2.10",
-    "@types/hls.js": "^0.12.4",
     "core-js": "^2.6.9",
     "dashjs": "^2.9.3",
-    "hls.js": "^0.12.4",
-    "plyr": "^3.5.10",
+    "hls.js": "^1.4.12",
+    "plyr": "^3.7.8",
     "rxjs": "~6.5.4",
     "tslib": "^2.6.2",
     "zone.js": "~0.11.8"

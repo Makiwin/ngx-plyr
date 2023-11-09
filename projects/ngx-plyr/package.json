@@ -1,6 +1,6 @@
 {
   "name": "@makiwin/ngx-plyr",
-  "version": "0.15.0",
+  "version": "0.15.1",
   "keywords": [
     "ngx-plyr",
     "ng-plyr",
@@ -19,7 +19,7 @@
   "peerDependencies": {
     "@angular/common": ">=15.0.0",
     "@angular/core": ">=15.0.0",
-    "plyr": "^3.5.10"
+    "plyr": "^3.7.8"
   },
   "publishConfig": {
     "access": "public"
