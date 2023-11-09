@@ -23,10 +23,7 @@
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
             "tsConfig": "src/tsconfig.app.json",
-            "assets": [
-              "src/favicon.ico",
-              "src/assets"
-            ],
+            "assets": ["src/favicon.ico", "src/assets"],
             "styles": [
               "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
               "src/styles.scss",
@@ -62,6 +59,14 @@
                   "maximumWarning": "6kb"
                 }
               ]
+            },
+            "development": {
+              "buildOptimizer": false,
+              "optimization": false,
+              "vendorChunk": true,
+              "extractLicenses": false,
+              "sourceMap": true,
+              "namedChunks": true
             }
           }
         },
@@ -72,7 +77,10 @@
           },
           "configurations": {
             "production": {
-              "browserTarget": "ngx-plyr-app:build:production"
+              "browserTarget": "ngx-plyr-app:build:development"
+            },
+            "development": {
+              "browserTarget": "ngx-plyr-app:build:development"
             }
           }
         },
@@ -94,10 +102,7 @@
               "src/styles.scss"
             ],
             "scripts": [],
-            "assets": [
-              "src/favicon.ico",
-              "src/assets"
-            ]
+            "assets": ["src/favicon.ico", "src/assets"]
           }
         }
       }

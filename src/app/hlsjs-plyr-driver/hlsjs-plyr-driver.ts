@@ -1,14 +1,18 @@
-import * as Hls from 'hls.js';
-import { PlyrDriver, PlyrDriverCreateParams, PlyrDriverDestroyParams, PlyrDriverUpdateSourceParams } from 'ngx-plyr';
-import * as Plyr from 'plyr';
+import Hls from "hls.js";
+import {
+  PlyrDriver,
+  PlyrDriverCreateParams,
+  PlyrDriverDestroyParams,
+  PlyrDriverUpdateSourceParams,
+} from "ngx-plyr";
+import Plyr from "plyr";
 
 export class HlsjsPlyrDriver implements PlyrDriver {
-
   hls = new Hls();
 
   private loaded = false;
 
-  constructor(private autoload: boolean) { }
+  constructor(private autoload: boolean) {}
 
   create(params: PlyrDriverCreateParams) {
     this.hls.attachMedia(params.videoElement);
@@ -37,5 +41,4 @@ export class HlsjsPlyrDriver implements PlyrDriver {
       this.hls.loadSource(src);
     }
   }
-
 }

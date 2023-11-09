@@ -1,11 +1,15 @@
-import 'dashjs/dist/dash.all.min.js';
-import { PlyrDriver, PlyrDriverCreateParams, PlyrDriverDestroyParams, PlyrDriverUpdateSourceParams } from 'ngx-plyr';
-import * as Plyr from 'plyr';
+import "dashjs/dist/dash.all.min.js";
+import {
+  PlyrDriver,
+  PlyrDriverCreateParams,
+  PlyrDriverDestroyParams,
+  PlyrDriverUpdateSourceParams,
+} from "ngx-plyr";
+import Plyr from "plyr";
 
 declare const dashjs: any;
 
 export class DashjsPlyrDriver implements PlyrDriver {
-
   dash = dashjs.MediaPlayer().create();
 
   private videoElement: HTMLVideoElement;
@@ -41,5 +45,4 @@ export class DashjsPlyrDriver implements PlyrDriver {
       this.dash.initialize(this.videoElement, src, false);
     }
   }
-
 }

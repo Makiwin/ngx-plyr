@@ -1,18 +1,30 @@
-import { AfterViewInit, Component, ElementRef, EventEmitter, Input, NgZone, OnChanges, OnDestroy, Output, Renderer2, SimpleChange, ViewChild } from '@angular/core';
-import * as Plyr from 'plyr';
-import { BehaviorSubject, Observable, Subscription } from 'rxjs';
-import { filter, first, switchMap } from 'rxjs/operators';
-import { DefaultPlyrDriver } from '../plyr-driver/default-plyr-driver';
-import { PlyrDriver } from '../plyr-driver/plyr-driver';
+import {
+  AfterViewInit,
+  Component,
+  ElementRef,
+  EventEmitter,
+  Input,
+  NgZone,
+  OnChanges,
+  OnDestroy,
+  Output,
+  Renderer2,
+  SimpleChange,
+  ViewChild,
+} from "@angular/core";
+import * as Plyr from "plyr";
+import { BehaviorSubject, Observable, Subscription } from "rxjs";
+import { filter, first, switchMap } from "rxjs/operators";
+import { DefaultPlyrDriver } from "../plyr-driver/default-plyr-driver";
+import { PlyrDriver } from "../plyr-driver/plyr-driver";
 
 @Component({
-  selector: 'plyr, [plyr]', // tslint:disable-line
-  templateUrl: './plyr.component.html',
-  styleUrls: ['./plyr.component.css'],
-  exportAs: 'plyr'
+  selector: "plyr, [plyr]", // tslint:disable-line
+  templateUrl: "./plyr.component.html",
+  styleUrls: ["./plyr.component.css"],
+  exportAs: "plyr",
 })
 export class PlyrComponent implements AfterViewInit, OnChanges, OnDestroy {
-
   private playerChange = new BehaviorSubject<Plyr>(null);
 
   get player(): Plyr {
@@ -23,7 +35,7 @@ export class PlyrComponent implements AfterViewInit, OnChanges, OnDestroy {
 
   @Input() plyrDriver: PlyrDriver;
 
-  @Input() plyrType: Plyr.MediaType = 'video';
+  @Input() plyrType: Plyr.MediaType = "video";
 
   @Input() plyrTitle: string;
 
@@ -39,46 +51,48 @@ export class PlyrComponent implements AfterViewInit, OnChanges, OnDestroy {
 
   @Input() plyrPlaysInline: boolean;
 
-  @ViewChild('v') private vr: ElementRef;
+  @ViewChild("v") private vr: ElementRef;
 
   // ngx-plyr events
-  @Output() plyrInit = this.playerChange.pipe(filter(player => !!player)) as EventEmitter<Plyr>;
+  @Output() plyrInit = this.playerChange.pipe(
+    filter((player) => !!player)
+  ) as EventEmitter<Plyr>;
 
   // standard media events
-  @Output() plyrProgress = this.createLazyEvent('progress');
-  @Output() plyrPlaying = this.createLazyEvent('playing');
-  @Output() plyrPlay = this.createLazyEvent('play');
-  @Output() plyrPause = this.createLazyEvent('pause');
-  @Output() plyrTimeUpdate = this.createLazyEvent('timeupdate');
-  @Output() plyrVolumeChange = this.createLazyEvent('volumechange');
-  @Output() plyrSeeking = this.createLazyEvent('seeking');
-  @Output() plyrSeeked = this.createLazyEvent('seeked');
-  @Output() plyrRateChange = this.createLazyEvent('ratechange');
-  @Output() plyrEnded = this.createLazyEvent('ended');
-  @Output() plyrEnterFullScreen = this.createLazyEvent('enterfullscreen');
-  @Output() plyrExitFullScreen = this.createLazyEvent('exitfullscreen');
-  @Output() plyrCaptionsEnabled = this.createLazyEvent('captionsenabled');
-  @Output() plyrCaptionsDisabled = this.createLazyEvent('captionsdisabled');
-  @Output() plyrLanguageChange = this.createLazyEvent('languagechange');
-  @Output() plyrControlsHidden = this.createLazyEvent('controlshidden');
-  @Output() plyrControlsShown = this.createLazyEvent('controlsshown');
-  @Output() plyrReady = this.createLazyEvent('ready');
+  @Output() plyrProgress = this.createLazyEvent("progress");
+  @Output() plyrPlaying = this.createLazyEvent("playing");
+  @Output() plyrPlay = this.createLazyEvent("play");
+  @Output() plyrPause = this.createLazyEvent("pause");
+  @Output() plyrTimeUpdate = this.createLazyEvent("timeupdate");
+  @Output() plyrVolumeChange = this.createLazyEvent("volumechange");
+  @Output() plyrSeeking = this.createLazyEvent("seeking");
+  @Output() plyrSeeked = this.createLazyEvent("seeked");
+  @Output() plyrRateChange = this.createLazyEvent("ratechange");
+  @Output() plyrEnded = this.createLazyEvent("ended");
+  @Output() plyrEnterFullScreen = this.createLazyEvent("enterfullscreen");
+  @Output() plyrExitFullScreen = this.createLazyEvent("exitfullscreen");
+  @Output() plyrCaptionsEnabled = this.createLazyEvent("captionsenabled");
+  @Output() plyrCaptionsDisabled = this.createLazyEvent("captionsdisabled");
+  @Output() plyrLanguageChange = this.createLazyEvent("languagechange");
+  @Output() plyrControlsHidden = this.createLazyEvent("controlshidden");
+  @Output() plyrControlsShown = this.createLazyEvent("controlsshown");
+  @Output() plyrReady = this.createLazyEvent("ready");
 
   // HTML5 events
-  @Output() plyrLoadStart = this.createLazyEvent('loadstart');
-  @Output() plyrLoadedData = this.createLazyEvent('loadeddata');
-  @Output() plyrLoadedMetadata = this.createLazyEvent('loadedmetadata');
-  @Output() plyrQualityChange = this.createLazyEvent('qualitychange');
-  @Output() plyrCanPlay = this.createLazyEvent('canplay');
-  @Output() plyrCanPlayThrough = this.createLazyEvent('canplaythrough');
-  @Output() plyrStalled = this.createLazyEvent('stalled');
-  @Output() plyrWaiting = this.createLazyEvent('waiting');
-  @Output() plyrEmptied = this.createLazyEvent('emptied');
-  @Output() plyrCueChange = this.createLazyEvent('cuechange');
-  @Output() plyrError = this.createLazyEvent('error');
+  @Output() plyrLoadStart = this.createLazyEvent("loadstart");
+  @Output() plyrLoadedData = this.createLazyEvent("loadeddata");
+  @Output() plyrLoadedMetadata = this.createLazyEvent("loadedmetadata");
+  @Output() plyrQualityChange = this.createLazyEvent("qualitychange");
+  @Output() plyrCanPlay = this.createLazyEvent("canplay");
+  @Output() plyrCanPlayThrough = this.createLazyEvent("canplaythrough");
+  @Output() plyrStalled = this.createLazyEvent("stalled");
+  @Output() plyrWaiting = this.createLazyEvent("waiting");
+  @Output() plyrEmptied = this.createLazyEvent("emptied");
+  @Output() plyrCueChange = this.createLazyEvent("cuechange");
+  @Output() plyrError = this.createLazyEvent("error");
 
   // YouTube events
-  @Output() plyrStateChange = this.createLazyEvent('statechange');
+  @Output() plyrStateChange = this.createLazyEvent("statechange");
 
   private subscriptions: Subscription[] = [];
 
@@ -89,27 +103,32 @@ export class PlyrComponent implements AfterViewInit, OnChanges, OnDestroy {
   constructor(
     private elementRef: ElementRef<HTMLDivElement>,
     private ngZone: NgZone,
-    private renderer: Renderer2,
-  ) {
-  }
+    private renderer: Renderer2
+  ) {}
 
-  ngOnChanges(changes: { [p in keyof PlyrComponent]?: SimpleChange; }) {
-    this.subscriptions.push(this.plyrInit.pipe(first()).subscribe((player: Plyr) => {
-      const reinitTriggers = [changes.plyrOptions, changes.plyrPlaysInline, changes.plyrCrossOrigin].filter(t => !!t);
+  ngOnChanges(changes: { [p in keyof PlyrComponent]?: SimpleChange }) {
+    this.subscriptions.push(
+      this.plyrInit.pipe(first()).subscribe((player: Plyr) => {
+        const reinitTriggers = [
+          changes.plyrOptions,
+          changes.plyrPlaysInline,
+          changes.plyrCrossOrigin,
+        ].filter((t) => !!t);
 
-      if (reinitTriggers.length) {
-        if (reinitTriggers.some(t => !t.firstChange)) {
-          this.initPlyr(true);
+        if (reinitTriggers.length) {
+          if (reinitTriggers.some((t) => !t.firstChange)) {
+            this.initPlyr(true);
+          }
+        } else {
+          this.updatePlyrSource(player);
         }
-      } else {
-        this.updatePlyrSource(player);
-      }
-    }));
+      })
+    );
   }
 
   ngOnDestroy() {
     this.destroyPlayer();
-    this.subscriptions.forEach(s => s.unsubscribe());
+    this.subscriptions.forEach((s) => s.unsubscribe());
   }
 
   ngAfterViewInit() {
@@ -152,15 +171,24 @@ export class PlyrComponent implements AfterViewInit, OnChanges, OnDestroy {
   }
 
   // see https://stackoverflow.com/a/53704102/1990451
-  private createLazyEvent<T extends Plyr.PlyrEvent>(name: Plyr.StandardEvent | Plyr.Html5Event | Plyr.YoutubeEvent): EventEmitter<T> {
+  private createLazyEvent<T extends Plyr.PlyrEvent>(
+    name: Plyr.StandardEvent | Plyr.Html5Event | Plyr.YoutubeEvent
+  ): EventEmitter<T> {
     return this.plyrInit.pipe(
-      switchMap(() => new Observable(observer => this.on(name, (data: T) => this.ngZone.run(() => observer.next(data)))))
+      switchMap(
+        () =>
+          new Observable((observer) =>
+            this.on(name, (data: T) =>
+              this.ngZone.run(() => observer.next(data))
+            )
+          )
+      )
     ) as EventEmitter<T>;
   }
 
   private destroyPlayer() {
     if (this.player) {
-      Array.from(this.events.keys()).forEach(name => this.off(name));
+      Array.from(this.events.keys()).forEach((name) => this.off(name));
 
       this.driver.destroy({
         plyr: this.player,
@@ -177,20 +205,20 @@ export class PlyrComponent implements AfterViewInit, OnChanges, OnDestroy {
   // this method is required because the plyr inserts clone of the original element on destroy
   // so we catch the clone element right here and reuse it
   private ensureVideoElement() {
-    const videoElement = this.hostElement.querySelector('video');
+    const videoElement = this.hostElement.querySelector("video");
 
     if (videoElement) {
       this.videoElement = videoElement;
     } else {
-      this.videoElement = this.renderer.createElement('video');
+      this.videoElement = this.renderer.createElement("video");
       this.videoElement.controls = true;
 
       if (this.plyrCrossOrigin) {
-        this.videoElement.setAttribute('crossorigin', '');
+        this.videoElement.setAttribute("crossorigin", "");
       }
 
       if (this.plyrPlaysInline) {
-        this.videoElement.setAttribute('playsinline', '');
+        this.videoElement.setAttribute("playsinline", "");
       }
 
       this.renderer.appendChild(this.hostElement, this.videoElement);
@@ -206,5 +234,4 @@ export class PlyrComponent implements AfterViewInit, OnChanges, OnDestroy {
     this.player.off(name as any, this.events.get(name));
     this.events.delete(name);
   }
-
 }
